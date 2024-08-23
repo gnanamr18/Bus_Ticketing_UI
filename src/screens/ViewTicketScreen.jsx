@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Card, Button } from '@mui/material';
-import { useCancelMutation, useGetTicketQuery } from '../slices/userApiSlice';
 import { useParams, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -10,13 +9,9 @@ import { BASE_URL, TICKET_URL } from '../constants';
 const ViewTicketScreen = () => {
     const { id } = useParams();
     const [ticket, setTicket] = useState();
-    // const [ cancel ] = useCancelMutation();
-    // const { data: tickeet, isLoading, refetch } = useGetTicketQuery(id);
-    console.log(ticket)
-
+ 
     const getTicket = async () =>{
         const res = await axios.get(`${BASE_URL}${TICKET_URL}/${id}`,{withCredentials: true });
-        console.log(res);
         setTicket(res?.data)
     }
 
@@ -41,7 +36,6 @@ const ViewTicketScreen = () => {
     }
   return (
     <Container>
-        {/* {   <h1>Loading...</h1>} */}
 
         <Link to={'/tickets'}>
             <Button variant="outlined" type='button' className='m-5 bg-black' sx={{color: 'white', borderColor: 'black', '&:hover': {
@@ -56,10 +50,10 @@ const ViewTicketScreen = () => {
                 <div className={`${ticket.isBooked ? ticket.date.slice(0, 10) < new Date().toISOString().slice(0, 10) ? 'bg-yellow-400' : 'bg-green-400' : 'bg-red-500'} w-full flex justify-center p-3`}>
                     <h1>{ticket.isBooked ? ticket.date.slice(0, 10) < new Date().toISOString().slice(0, 10) ? 'Expired' : 'Booked' : 'Canceled'}</h1>
                 </div>
-                <h1 className='p-2'>{ticket.origin} - {ticket.destination}</h1>
-                <h2 className='p-2'>{ticket.departureTime} - {ticket.arrivalTime}</h2>
-                <div className='flex justify-between p-2'>
-                    <span>{ticket.busNumber}</span>
+                <h1 className='p-2 '>{ticket.origin} - {ticket.destination}</h1>
+                <h2 className='p-2 '>{ticket.departureTime} - {ticket.arrivalTime}</h2>
+                <div className='flex justify-between p-2 '>
+                    <span><p>Bus No</p>{ticket.busNumber}</span>
                     <span>{ticket.date.slice(0,10)}</span>
                 </div>
                 <div className='p-2'>
@@ -116,4 +110,3 @@ const ViewTicketScreen = () => {
 
 export default ViewTicketScreen
 
-// CICD

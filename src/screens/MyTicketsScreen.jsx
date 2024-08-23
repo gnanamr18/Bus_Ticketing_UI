@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useTicketsQuery } from '../slices/userApiSlice';
 import { Card, Button } from '@mui/material';
 import { getTicket } from '../slices/tripSlice';
 import { useDispatch } from 'react-redux';
@@ -9,8 +8,6 @@ import { BASE_URL, TICKET_URL } from '../constants';
 
 const MyTicketsScreen = () => {
     const [tickets,setTickets] = useState();
-    // const { data: tickets, isError, error } = useTicketsQuery();
-    // console.log(tickets)
 
     const viewTickets = async() =>{
         const res = await axios.get(`${BASE_URL}${TICKET_URL}`,{withCredentials:true});
@@ -21,15 +18,7 @@ const MyTicketsScreen = () => {
     useEffect(()=>{viewTickets()},[])
     const dispatch = useDispatch();
 
-    // console.log(isError);
-
-    // if (isError){
-    //     return (
-    //         <>
-    //             <h1>{error?.data?.message}</h1>
-    //         </>
-    //     )
-    // }
+    
 
     const handleViewTicket = (ticket) => {
         dispatch(getTicket(ticket));
